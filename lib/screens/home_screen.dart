@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/profile_card.dart';
-
+import 'project_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,35 +8,36 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
       body: Stack(
         children: [
-          // Background Image
+          // Gambar latar belakang full screen
           SizedBox.expand(
             child: Image.asset(
               'assets/images/bandara.jpg',
               fit: BoxFit.cover,
             ),
           ),
-          // Foreground content (dibungkus dengan Container agar bisa beri warna overlay)
-          Container(
-            color: Colors.black.withOpacity(0.5), // Optional: overlay gelap
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'My Portfolio',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white, // Supaya terlihat di atas background
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  ProfileCard(),
-                ],
-              ),
+
+          // Overlay isi konten
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                 ProfileCard(),
+                const SizedBox(height: 40),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProjectScreen()),
+                    );
+                  },
+                  child: const Text('View Project'),
+                ),
+              ],
             ),
           ),
         ],
